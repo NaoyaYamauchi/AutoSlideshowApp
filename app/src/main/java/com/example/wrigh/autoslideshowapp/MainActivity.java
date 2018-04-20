@@ -40,14 +40,14 @@ public class MainActivity extends AppCompatActivity {
     int imageUriNum = 0;
 
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        TextView textView = (TextView)findViewById(R.id.textView);
         mNextButton = (Button) findViewById(R.id.nextButton);
         mPlayButton = (Button) findViewById(R.id.playButton);
         mPrevButton = (Button) findViewById(R.id.prevButton);
-        TextView textView = (TextView)findViewById(R.id.textView);
         Boolean os_M = false;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
             if(!os_M){
                 textView.setText("画像が保存されていないか、画像利用を許可していません");
             }
+        }else{
+
         }
         //「進む」ボタン処理
         mNextButton.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getContentsInfo() {
+        TextView textView = (TextView)findViewById(R.id.textView);
         //画像情報の取得。初回だけ。
         ContentResolver resolver = getContentResolver();
         Cursor cursor = resolver.query(
@@ -204,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
         mNextButton.setEnabled(true);
         mPrevButton.setEnabled(true);
         mPlayButton.setEnabled(true);
+        textView.setText("");
         imageView.setImageURI(imageUri.get(imageUriNum));
         cursor.close();
     }
